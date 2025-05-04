@@ -23,7 +23,7 @@ const Dashboard = () => {
     );
     if (complete) {
       setStreak((prev) => prev + 1);
-      setReminderEnabled(false); // disable reminder if goals are met
+      setReminderEnabled(false);
     }
   }, [progress, goals]);
 
@@ -40,7 +40,7 @@ const Dashboard = () => {
           setReminder("");
           setFlashBg(false);
         }, 4000);
-      }, 10000); // every 10 seconds
+      }, 10000);
     }
     return () => clearInterval(interval);
   }, [reminderEnabled]);
@@ -68,7 +68,7 @@ const Dashboard = () => {
   const navItems = ["dashboard", "log", "settings"];
 
   return (
-    <div className={`min-h-screen ${flashBg ? "bg-yellow-100" : "bg-gradient-to-br from-indigo-50 to-blue-100"} text-gray-800 transition-colors duration-500 font-sans`}> 
+    <div className={`min-h-screen ${flashBg ? "bg-yellow-100" : "bg-gradient-to-br from-indigo-50 to-blue-100"} text-gray-800 transition-colors duration-500 font-sans`}>
       <audio ref={audioRef} src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" preload="auto" />
 
       <header className="bg-white shadow p-4 flex justify-between items-center">
@@ -78,8 +78,7 @@ const Dashboard = () => {
             <button
               key={item}
               onClick={() => setSelectedView(item)}
-              className={`capitalize px-4 py-2 rounded-lg font-medium transition ${
-                selectedView === item ? "bg-indigo-600 text-white" : "text-indigo-600 hover:bg-indigo-100"}`}
+              className={`capitalize px-4 py-2 rounded-lg font-medium transition ${selectedView === item ? "bg-indigo-600 text-white" : "text-indigo-600 hover:bg-indigo-100"}`}
             >
               {item}
             </button>
@@ -89,7 +88,11 @@ const Dashboard = () => {
 
       <main className="p-6 md:p-8">
         {selectedView === "dashboard" && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-white rounded-2xl shadow p-6">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            {...{ className: "bg-white rounded-2xl shadow p-6" }}
+          >
             <h2 className="text-3xl font-bold mb-6 text-indigo-700">Daily Check-In</h2>
             <div className="space-y-5">
               {habits.map((habit) => (
@@ -122,7 +125,11 @@ const Dashboard = () => {
         )}
 
         {selectedView === "log" && (
-          <motion.div initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }} className="bg-white rounded-2xl shadow p-6">
+          <motion.div
+            initial={{ x: 50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            {...{ className: "bg-white rounded-2xl shadow p-6" }}
+          >
             <h2 className="text-3xl font-bold mb-6 text-indigo-700">Weekly Progress</h2>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={log}>
@@ -139,7 +146,11 @@ const Dashboard = () => {
         )}
 
         {selectedView === "settings" && (
-          <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white rounded-2xl shadow p-6">
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            {...{ className: "bg-white rounded-2xl shadow p-6" }}
+          >
             <h2 className="text-3xl font-bold mb-6 text-indigo-700">Settings & Goals</h2>
             <div className="space-y-5 mb-6">
               {habits.map((habit) => (
@@ -159,8 +170,7 @@ const Dashboard = () => {
             </div>
             <button
               onClick={toggleReminder}
-              className={`px-5 py-2 rounded-lg text-white font-semibold transition ${
-                reminderEnabled ? "bg-red-500 hover:bg-red-600" : "bg-blue-500 hover:bg-blue-600"}`}
+              className={`px-5 py-2 rounded-lg text-white font-semibold transition ${reminderEnabled ? "bg-red-500 hover:bg-red-600" : "bg-blue-500 hover:bg-blue-600"}`}
             >
               {reminderEnabled ? "Disable Reminder" : "Enable Reminder"}
             </button>
